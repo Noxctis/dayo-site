@@ -448,10 +448,11 @@
   .route__line, .route__fill { position: absolute; inset: 2.1rem 0 auto; border-top: 3px dashed rgb(255 255 255 / 0.7); }
   .route__fill { right: auto; width: calc(var(--step) / 3 * 100%); border-top: 3px solid var(--white); transition: width 0.7s var(--ease); }
   .route__stop { position: absolute; top: 1.6rem; width: 1.1rem; height: 1.1rem; margin-left: -0.55rem; border: 3px solid var(--white); border-radius: 50%; background: var(--sky-deep); transition: background-color 0.3s, transform 0.3s; }
-  .route__stop:nth-of-type(1) { left: 0; }
-  .route__stop:nth-of-type(2) { left: 33.333%; }
-  .route__stop:nth-of-type(3) { left: 66.666%; }
-  .route__stop:nth-of-type(4) { left: 100%; }
+  .route__stop { left: calc(var(--i) / 3 * 100%); }
+  .route__stop:nth-child(3) { --i: 0; }
+  .route__stop:nth-child(4) { --i: 1; }
+  .route__stop:nth-child(5) { --i: 2; }
+  .route__stop:nth-child(6) { --i: 3; }
   .route__stop.is-reached { background: var(--red-hot); transform: scale(1.25); }
   .route__plane { position: absolute; top: 0.1rem; left: calc(var(--step) / 3 * 100%); width: 2.9rem; height: 2.9rem; translate: -50% 0; color: var(--white); filter: drop-shadow(0 6px 4px rgb(0 30 90 / 0.35)); transition: left 0.7s var(--ease); }
   .stage__actions { display: flex; gap: 0.6rem; margin-top: 1.5rem; }

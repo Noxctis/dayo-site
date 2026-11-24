@@ -22,14 +22,20 @@ export function initPackages(store, catalog) {
   );
 
   store.subscribe(({ package: id, travelers }) => {
-    const pkg = catalog[id];
-    if (!pkg) return; // "custom" has no fixed price
+    const pkg = catalog[id]; // undefined for "Fully custom"
+    const plural = `${travelers} traveler${travelers === 1 ? '' : 's'}`;
 
     qsa('input[name="package"]').forEach((input) => (input.checked = input.value === id));
     output.textContent = travelers;
     minus.disabled = travelers <= MIN_TRAVELERS;
     plus.disabled = travelers >= MAX_TRAVELERS;
-    total.textContent = formatPeso(pkg.price * travelers);
-    note.textContent = `${pkg.name} × ${travelers} traveler${travelers === 1 ? '' : 's'} · ${formatPeso(pkg.price)} each`;
+
+    if (pkg) {
+      total.textContent = formatPeso(pkg.price * travelers);
+      note.textContent = `${pkg.name} × ${plural} · ${formatPeso(pkg.price)} each`;
+    } else {
+      total.textContent = 'Custom quote';
+      note.textContent = `Fully custom trip for ${plural}. Tell us what you need and we'll price it.`;
+    }
   });
 }

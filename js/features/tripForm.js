@@ -28,13 +28,16 @@ export function initTripForm(store, catalog, contact) {
     if (pkg) option.textContent = `${pkg.name.split(' ')[0]} · ${formatPeso(pkg.price)}`;
   });
 
-  // Dates: no past departures, return not before departure.
-  els.from.min = today();
-  els.from.addEventListener('change', () => {
-    els.to.min = els.from.value || today();
-    if (els.to.value && els.to.value < els.to.min) els.to.value = els.to.min;
-  });
-  els.to.min = today();
+  // Dates: no past departures; return date must not be before departure.
+  // We never rewrite what the visitor typed, we only report a clear validation message.
+  els.from.min = els.to.min = today();
+  const checkDates = () => {
+    const { value: from } = els.from;
+    const { value: to } = els.to;
+    els.to.setCustomValidity(from && to && to < from ? 'The return date can’t be before the departure date.' : '');
+  };
+  els.from.addEventListener('input', checkDates);
+  els.to.addEventListener('input', checkDates);
 
   // Keep form fields and the package section in sync through the store.
   els.pkg.addEventListener('change', () => store.set({ package: els.pkg.value }));
@@ -49,6 +52,7 @@ export function initTripForm(store, catalog, contact) {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    checkDates();
     if (!form.reportValidity()) return;
 
     const data = new FormData(form);
