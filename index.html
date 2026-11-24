@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dayo Travel and Tours — Mapping Your Journey, Discovering Your World</title>
+<meta name="description" content="Customized and flexible travel management. Inbound and outbound packages, built around your destination, budget and schedule.">
+<meta name="theme-color" content="#ff3131">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dayo Travel and Tours">
+<meta property="og:description" content="Mapping Your Journey, Discovering Your World. Customized and flexible travel management.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#ee1c1c;
+  --red-deep:#c40f12;
+  --red-hot:#ff3131;
+  --sky:#1f66d1;
+  --sky-lt:#cfe5fb;
+  --paper:#fff9f4;
+  --ink:#2a0f10;
+  --ink-soft:#6b4b4c;
+  --line:rgba(42,15,16,.14);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Figtree",system-ui,sans-serif;
+  --r:22px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;background:var(--red-hot);color:#fff;height:60px}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:100%;gap:16px}
+.links{display:flex;gap:4px;list-style:none;padding:0;overflow-x:auto;scrollbar-width:none}
+.links::-webkit-scrollbar{display:none}
+.links a{display:block;padding:8px 14px;border-radius:99px;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;transition:background .2s,color .2s}
+.links a:hover{background:rgba(255,255,255,.18)}
+.links a.on{background:#fff;color:var(--red)}
+.pills{display:flex;gap:8px;flex-shrink:0}
+.pill{display:inline-block;border:2px solid #fff;background:transparent;color:#fff;padding:7px 16px;border-radius:99px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;transition:transform .15s,background .2s,color .2s}
+.pill:hover{transform:translateY(-2px)}
+.pill.solid{background:#fff;color:var(--red)}
+.pill:not(.solid):hover{background:#fff;color:var(--red)}
+.trail{position:absolute;left:0;right:0;bottom:-1px;height:0}
+.trail i{position:absolute;left:0;bottom:-11px;width:22px;height:22px;transform:translateX(-50%);will-change:left}
+.trail svg{width:100%;height:100%;fill:var(--red-deep)}
+.bar{position:absolute;left:0;bottom:0;height:3px;background:var(--red-deep);width:0}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;padding:110px 0 70px;background:linear-gradient(180deg,#1b5fcb 0%,#4b92e3 38%,#cfe5fb 72%,var(--paper) 100%);overflow:hidden;isolation:isolate}
+.hero .cloud{position:absolute;pointer-events:none;opacity:.95;z-index:-1}
+.cloud{height:240px;background:
+ radial-gradient(closest-side,#fff 60%,transparent 100%) 8% 62%/42% 62% no-repeat,
+ radial-gradient(closest-side,#fff 60%,transparent 100%) 34% 38%/46% 84% no-repeat,
+ radial-gradient(closest-side,#fff 60%,transparent 100%) 62% 58%/44% 66% no-repeat,
+ radial-gradient(closest-side,#fff 60%,transparent 100%) 90% 66%/36% 52% no-repeat;filter:blur(10px)}
+.c1{width:680px;left:-140px;top:90px}
+.c2{width:560px;right:-120px;top:40px;opacity:.8}
+.c3{width:760px;left:28%;top:48%;opacity:.9}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:20px;min-height:calc(100vh - 180px)}
+.logo{width:min(440px,78%);filter:drop-shadow(0 18px 22px rgba(120,0,0,.25));transform-origin:20% 90%;animation:pop 1s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{transform:scale(.6) rotate(-8deg);opacity:0}}
+.tag{font-family:var(--display);font-weight:800;font-size:clamp(28px,3.6vw,46px);line-height:1.02;letter-spacing:-.025em;color:var(--red);margin-top:34px;text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.sub{margin-top:12px;font-size:18px;color:#7c1d1d;max-width:34ch;font-weight:500}
+.perks{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:34px;list-style:none;padding:0}
+.perks li{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--red-deep);line-height:1.2}
+.perks svg{width:36px;height:36px;padding:8px;background:var(--red);border-radius:10px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero-plane{position:relative;height:100%;min-height:420px}
+.hero-plane .jet{position:absolute;right:-90px;top:50%;width:min(860px,118%);transform:translateY(-58%);filter:drop-shadow(0 40px 30px rgba(0,30,90,.3));will-change:transform;animation:fly 1.4s cubic-bezier(.2,.8,.2,1) .15s both}
+@keyframes fly{from{opacity:0;transform:translate(-120px,-40%) rotate(-4deg)}}
+.dash{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.dash path{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:9 11;stroke-linecap:round;opacity:.95}
+.dash.red path{stroke:var(--red)}
+.mini{position:absolute;width:44px;fill:#fff}
+.mini.red{fill:var(--red)}
+
+/* ---------- section heads ---------- */
+.sec{padding:110px 0;position:relative}
+.eyebrow{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--red)}
+.h2{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.92;font-size:clamp(52px,9vw,128px);color:var(--red)}
+.h2 .alt{display:inline-block;transform:rotate(-3deg);color:var(--ink);font-size:.62em;margin-left:.1em;line-height:.9}
+.h2 br+.alt{margin:.06em 0 0 .04em}
+
+/* ---------- why ---------- */
+.why{background:var(--paper);padding-top:40px}
+.band{position:relative;height:clamp(260px,34vw,420px);margin-bottom:-60px;background:url(img/lake.webp) center 55%/cover;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent)}
+.band .h2{position:absolute;left:max(20px,calc(50% - 560px));bottom:60px;color:#fff;text-shadow:0 6px 0 rgba(0,40,100,.25)}
+.band .h2 .alt{color:var(--red-hot);}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2;margin-top:10px;align-items:start}
+.pc{border:2px solid var(--line);background:#fff;border-radius:var(--r);padding:26px 24px;text-align:left;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s,background .25s}
+.pc:hover{transform:translateY(-4px)}
+.pc[aria-expanded=true]{border-color:var(--red);background:#fff;box-shadow:8px 8px 0 var(--red)}
+.pc h3{font-family:var(--display);font-weight:800;font-size:25px;line-height:1;letter-spacing:-.02em;text-transform:uppercase;color:var(--red);display:flex;justify-content:space-between;gap:10px;align-items:start}
+.pc h3 b{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:var(--paper);color:var(--red);font-size:20px;transition:transform .3s,background .3s,color .3s}
+.pc[aria-expanded=true] h3 b{transform:rotate(45deg);background:var(--red);color:#fff}
+.pc p{margin-top:14px;color:var(--ink-soft);font-size:16px}
+.pc .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s}
+.pc[aria-expanded=true] .more{grid-template-rows:1fr}
+.pc .more>div{overflow:hidden}
+.pc .more ul{margin-top:16px;padding:14px 0 0 18px;border-top:1px dashed var(--line);font-size:15px;color:var(--ink)}
+.pc .more li{margin-bottom:6px}
+.why-photo{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:90px}
+.solo{width:100%;height:auto;border-radius:22px;box-shadow:0 24px 40px -18px rgba(80,0,0,.4);transform:rotate(-2deg)}
+.collage{position:relative;padding-bottom:70px}
+.collage img{height:auto;border-radius:22px;box-shadow:0 24px 40px -18px rgba(80,0,0,.4)}
+.collage .a{width:88%;transform:rotate(-2deg)}
+.collage .b{position:absolute;right:0;bottom:0;width:52%;border:6px solid var(--paper);transform:rotate(3deg)}
+.why-photo blockquote{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.2vw,40px);line-height:1.08;letter-spacing:-.02em}
+.why-photo blockquote em{font-style:normal;color:var(--red)}
+.why-photo small{display:block;margin-top:14px;font-family:var(--body);font-weight:500;font-size:16px;color:var(--ink-soft);letter-spacing:0}
+
+/* ---------- packages ---------- */
+.pk{background:linear-gradient(180deg,var(--paper),#fff 30%,#f1f7fe 75%,var(--sky-lt));overflow:hidden}
+.pk::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.35;mask-image:linear-gradient(180deg,#000,transparent 45%);-webkit-mask-image:linear-gradient(180deg,#000,transparent 45%)}
+.pk .head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.tp{margin:6px 0 0}.tp img{width:min(720px,100%);height:auto;mix-blend-mode:multiply}
+.pk .head .jet2{width:min(520px,52vw);margin-bottom:-30px;margin-right:-30px;filter:drop-shadow(0 26px 18px rgba(0,30,90,.25));transform:scaleX(-1) rotate(2deg)}
+.travelers{position:relative;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:36px 0 34px;padding:14px 18px;background:#fff;border:2px solid var(--ink);border-radius:99px;width:fit-content;box-shadow:5px 5px 0 var(--ink)}
+.travelers label{font-weight:700}
+.step{display:flex;align-items:center;gap:4px}
+.step button{width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);font-size:22px;font-weight:700;line-height:1;cursor:pointer;transition:background .15s,color .15s,transform .1s}
+.step button:hover{background:var(--ink);color:#fff}
+.step button:active{transform:scale(.9)}
+.step output{display:inline-block;min-width:44px;text-align:center;font-family:var(--display);font-weight:800;font-size:30px}
+.cards{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:stretch}
+.card{position:relative;background:#fff;border:3px solid transparent;border-radius:28px;padding:0 0 22px;cursor:pointer;box-shadow:0 20px 40px -22px rgba(80,0,0,.45);transition:transform .25s,border-color .25s,box-shadow .25s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px)}
+.card.sel{border-color:var(--red);box-shadow:10px 10px 0 var(--red)}
+.card input{position:absolute;opacity:0;pointer-events:none}
+.card:has(input:focus-visible){outline:3px solid var(--ink);outline-offset:4px}
+.card .top{background:var(--red);color:#fff;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.01em;text-transform:uppercase;text-align:center;padding:14px;border-radius:24px 24px 0 0}
+.card .ph{margin:14px 14px 0;aspect-ratio:16/10;border-radius:18px;overflow:hidden;border:2px solid var(--red);position:relative}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover .ph img{transform:scale(1.05)}
+.stamp{position:absolute;right:-18px;top:76px;width:84px;height:84px;display:grid;place-items:center;background:var(--red);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;line-height:.95;text-align:center;text-transform:uppercase;clip-path:polygon(50% 0,60% 12%,75% 6%,80% 21%,95% 22%,92% 38%,100% 50%,92% 62%,95% 78%,80% 79%,75% 94%,60% 88%,50% 100%,40% 88%,25% 94%,20% 79%,5% 78%,8% 62%,0 50%,8% 38%,5% 22%,20% 21%,25% 6%,40% 12%);transform:rotate(-14deg);z-index:3;filter:drop-shadow(2px 3px 0 var(--red-deep))}
+.card .body{padding:18px 26px 0;flex:1}
+.card .body>p{font-weight:600;color:var(--red-deep);font-size:17px;line-height:1.3}
+.card h4{margin-top:16px;font-family:var(--display);font-size:16px;font-weight:800;color:var(--ink)}
+.inc{list-style:none;padding:0;margin-top:8px;display:grid;gap:7px}
+.inc li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;font-weight:500;transition:background .2s}
+.inc svg{flex:none;width:20px;height:20px;margin-top:1px;fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.inc li.up{position:relative}
+.compare-on .inc li.up span{background:linear-gradient(transparent 55%,#ffd7d0 55%)}
+.price{display:flex;align-items:baseline;gap:6px;padding:16px 26px 0;border-top:1px dashed var(--line);margin:16px 0 0}
+.price strong{font-family:var(--display);font-weight:800;font-size:48px;letter-spacing:-.03em;color:var(--red);line-height:1}
+.price span{font-style:italic;font-size:14px;color:var(--ink-soft)}
+.pick{margin:16px 26px 0;padding:12px;border-radius:99px;border:2px solid var(--red);text-align:center;font-weight:700;color:var(--red);transition:.2s}
+.card.sel .pick{background:var(--red);color:#fff}
+.card.sel .pick::before{content:"✓ "}
+.estimate{position:relative;margin-top:44px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--ink);color:#fff;border-radius:26px;padding:24px 30px}
+.estimate .l small{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.65}
+.estimate .l b{font-family:var(--display);font-size:clamp(34px,5vw,56px);letter-spacing:-.03em;font-weight:800;line-height:1.1}
+.estimate .l span{opacity:.75;font-size:15px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;cursor:pointer;background:var(--red-hot);color:#fff;font-weight:700;font-size:16px;padding:15px 26px;border-radius:99px;text-decoration:none;transition:transform .15s,background .2s;display:inline-block}
+.btn:hover{transform:translateY(-2px);background:var(--red)}
+.btn.ghost{background:transparent;border:2px solid #fff}
+.btn.ghost:hover{background:#fff;color:var(--ink)}
+.tbl-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s;position:relative}
+.tbl-wrap.open{grid-template-rows:1fr}
+.tbl-wrap>div{overflow:hidden}
+table{width:100%;border-collapse:collapse;margin-top:26px;background:#fff;border-radius:20px;overflow:hidden;font-size:15.5px}
+th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-family:var(--display);font-weight:800;background:var(--red);color:#fff;font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+td:first-child{font-weight:700;color:var(--ink-soft);width:20%}
+td.d{background:#fff3f0;font-weight:600}
+tr:last-child td{border-bottom:0}
+
+/* ---------- process ---------- */
+.proc{background:linear-gradient(180deg,var(--sky-lt) 0,#4c93e4 14%,var(--sky) 60%,#1550aa 100%);color:#fff;overflow:hidden}
+.proc .h2{color:#fff;text-shadow:0 6px 0 rgba(0,40,110,.25)}
+.proc .h2 .alt{color:#fff}
+.proc .cloud{position:absolute;width:560px;right:-80px;top:60px;opacity:.7;pointer-events:none}
+.proc-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;margin-top:56px;align-items:start}
+.steps{list-style:none;padding:0;display:grid;gap:14px;counter-reset:s}
+.steps button{width:100%;text-align:left;display:grid;grid-template-columns:54px 1fr;gap:16px;align-items:center;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.35);border-radius:20px;padding:16px 20px;cursor:pointer;color:#fff;transition:background .25s,border-color .25s,transform .2s}
+.steps button:hover{transform:translateX(4px)}
+.steps button[aria-selected=true]{background:var(--red-hot);border-color:#fff;box-shadow:6px 6px 0 rgba(0,20,70,.35)}
+.steps .n{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#fff;color:var(--red);font-family:var(--display);font-weight:800;font-size:26px}
+.steps strong{font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-.01em;display:block}
+.steps span{font-size:15px;opacity:.92;display:block;margin-top:2px}
+.steps .done .n{background:var(--red-hot);color:#fff}
+.flight{position:sticky;top:96px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.4);border-radius:28px;padding:30px;backdrop-filter:blur(6px)}
+.flight .big{font-family:var(--display);font-weight:800;font-size:clamp(34px,4vw,50px);line-height:1;letter-spacing:-.03em;min-height:2em}
+.flight p{margin-top:10px;font-size:17px;opacity:.95;min-height:3.2em}
+.route{position:relative;margin:34px 6px 8px;height:60px}
+.route .line{position:absolute;left:0;right:0;top:34px;border-top:3px dashed rgba(255,255,255,.7)}
+.route .line.fill{border-top-style:solid;border-color:#fff;right:auto;width:0;transition:width .7s cubic-bezier(.5,0,.2,1)}
+.route .stop{position:absolute;top:26px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#1550aa;border:3px solid #fff;transition:background .3s,transform .3s}
+.route .stop.on{background:var(--red-hot);transform:scale(1.25)}
+.route .jetmini{position:absolute;top:2px;width:46px;margin-left:-23px;transition:left .7s cubic-bezier(.5,0,.2,1);fill:#fff;filter:drop-shadow(0 6px 4px rgba(0,30,90,.35))}
+.nxt{display:flex;gap:10px;margin-top:24px}
+.nxt .btn{background:#fff;color:var(--red);padding:12px 22px}
+.nxt .btn.ghost{background:transparent;color:#fff}
+.nxt .btn:disabled{opacity:.4;cursor:default;transform:none}
+
+/* ---------- plan + contact ---------- */
+.plan{background:var(--red-hot);color:#fff;position:relative;overflow:hidden;padding-bottom:0}
+.plan .h2{color:#fff}
+.plan .h2 .alt{color:#fff}
+.plan-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;margin-top:50px;align-items:start}
+form{background:#fff;color:var(--ink);border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:16px;box-shadow:10px 10px 0 var(--red-deep)}
+form h3{grid-column:1/-1;font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.02em;color:var(--red);line-height:1}
+.f{display:grid;gap:6px}
+.f.w{grid-column:1/-1}
+.f label{font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.f input,.f select,.f textarea{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:var(--paper);transition:border-color .2s,background .2s}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--red);background:#fff}
+.f textarea{min-height:92px;resize:vertical}
+.out{grid-column:1/-1;display:none;background:var(--paper);border:2px dashed var(--red);border-radius:16px;padding:18px}
+.out.show{display:block;animation:rise .4s ease}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+.out pre{white-space:pre-wrap;font-family:var(--body);font-size:15px;line-height:1.55}
+.out .row{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.out .btn{background:var(--red);padding:11px 20px;font-size:15px}
+.out .btn.alt{background:transparent;color:var(--red);border:2px solid var(--red);padding:9px 18px}
+.out .btn.alt:hover{background:var(--red);color:#fff}
+.out small{color:var(--ink-soft);font-size:14px}
+.reach{display:grid;gap:14px}
+.ch{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:center;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.35);text-decoration:none;transition:background .2s,transform .2s}
+.ch:hover{background:rgba(255,255,255,.28);transform:translateX(4px)}
+.ch svg{width:56px;height:56px;padding:13px;background:#fff;border-radius:16px;fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ch small{display:block;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;opacity:.8}
+.ch b{font-family:var(--display);font-size:clamp(18px,2.2vw,24px);font-weight:700;word-break:break-word}
+footer{margin-top:90px;padding:26px 0;border-top:2px solid rgba(255,255,255,.3);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer img{width:46px;filter:brightness(0) invert(1)}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,40px);background:var(--ink);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:90}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  .hero-grid,.proc-grid,.plan-grid,.why-photo{grid-template-columns:1fr}
+  .hero{padding-top:130px;min-height:0}
+  .hero-grid{min-height:0}
+  .hero-plane{min-height:300px}
+  .hero-plane .jet{right:-40px;width:110%;transform:translateY(-50%)}
+  .trio,.cards{grid-template-columns:1fr}
+  .flight{position:static}
+  .sec{padding:80px 0}
+  .stamp{right:6px;top:70px}
+  .nav{height:auto;padding:8px 0}
+  .nav .wrap{flex-wrap:wrap;row-gap:6px}
+  .pills{order:2}
+  .links{order:3;width:100%;margin:0 -4px}
+  html{scroll-padding-top:110px}
+  .pk .head .jet2{display:none}
+  form{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .pill{padding:6px 12px;font-size:13px}
+  .travelers{border-radius:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="plane" viewBox="0 0 24 24"><path transform="rotate(90 12 12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></symbol>
+  <symbol id="ck" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500"/><path d="m8 12.500 2.800 2.800L16.200 9.500"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <ul class="links" id="links">
+      <li><a href="#home" data-s="home">Home</a></li>
+      <li><a href="#packages" data-s="packages">Tour Packages</a></li>
+      <li><a href="#process" data-s="process">Booking</a></li>
+      <li><a href="#contact" data-s="contact">Contact</a></li>
+    </ul>
+    <div class="pills">
+      <a class="pill" href="#packages">Explore Packages</a>
+      <a class="pill solid" href="#contact" id="planTop">Plan Custom Trip</a>
+    </div>
+  </div>
+  <div class="bar" id="bar"></div>
+  <div class="trail"><i id="trailPlane"><svg><use href="#plane"/></svg></i></div>
+</header>
+
+<main>
+<!-- HOME -->
+<section class="hero" id="home">
+  <div class="cloud c1" data-p=".2"></div>
+  <div class="cloud c2" data-p=".35"></div>
+  <div class="cloud c3" data-p=".12"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <img class="logo" src="img/logo.webp" alt="Dayo">
+      <h1 class="tag">Mapping Your Journey,<br>Discovering Your World</h1>
+      <p class="sub">Your trusted partner for customized and flexible travel management.</p>
+      <ul class="perks">
+        <li><svg viewBox="0 0 24 24"><path d="M12 21s-6.500-5.600-6.500-11a6.500 6.500 0 0 1 13 0c0 5.400-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.300"/></svg>Customized<br>Itineraries</li>
+        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>Inbound/Outbound<br>Packages</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>24/7 Customer<br>Support</li>
+      </ul>
+    </div>
+    <div class="hero-plane">
+      <svg class="dash" viewBox="0 0 600 500" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M120 150C60 60 220 20 250 90S160 190 90 150" />
+        <path d="M470 380c60-40 130 30 70 70s-110-20-60-80" style="stroke:var(--red)"/>
+      </svg>
+      <svg class="mini" style="left:8%;top:8%;width:46px" aria-hidden="true"><use href="#plane"/></svg>
+      <img class="jet" id="jet" src="img/plane-red.webp" alt="">
+      <svg class="mini red" style="right:6%;bottom:6%;width:52px;transform:rotate(-20deg)" aria-hidden="true"><use href="#plane"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec why">
+  <div class="band" role="img" aria-label="A mountain lake">
+    <h2 class="h2">Explore <span class="alt">your</span><br>Journey</h2>
+  </div>
+  <div class="wrap">
+    <div class="trio">
+      <button class="pc" aria-expanded="false" data-pc>
+        <h3>Customized Travel <b>+</b></h3>
+        <p>Trips designed around your destination, budget, schedule, and preferences.</p>
+        <div class="more"><div><ul><li>Tell us where, when and how much.</li><li>We shape the itinerary around you.</li><li>Use “Plan Custom Trip” below to start.</li></ul></div></div>
+      </button>
+      <button class="pc" aria-expanded="false" data-pc>
+        <h3>Local &amp; International <b>+</b></h3>
+        <p>Offering tours across popular cities and hidden gems worldwide.</p>
+        <div class="more"><div><ul><li>Inbound and outbound packages.</li><li>Popular cities and off-the-path gems.</li><li>One partner for both.</li></ul></div></div>
+      </button>
+      <button class="pc" aria-expanded="false" data-pc>
+        <h3>Travel Made Easy <b>+</b></h3>
+        <p>From transportation and accommodation to activities and itineraries, we help plan your journey.</p>
+        <div class="more"><div><ul><li>Transportation</li><li>Accommodation</li><li>Activities and itineraries</li></ul></div></div>
+      </button>
+    </div>
+    <div class="why-photo rv">
+      <img class="solo" src="img/airport.webp" alt="Two travelers walking through an airport with their luggage" width="924" height="615" loading="lazy">
+      <blockquote>Every trip starts with a map and a few good people. <em>We handle the rest.</em><small>Transport, stay, activities and itinerary — planned together, with 24/7 support while you travel.</small></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="sec pk" id="packages">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">Pick your ride</div>
+        <h2 class="tp"><img src="img/title-packages.webp" alt="Tour Packages"></h2>
+      </div>
+    </div>
+
+    <div class="travelers rv">
+      <label for="nOut">Travelers</label>
+      <div class="step" role="group" aria-label="Number of travelers">
+        <button type="button" id="minus" aria-label="Fewer travelers">−</button>
+        <output id="nOut" aria-live="polite">2</output>
+        <button type="button" id="plus" aria-label="More travelers">+</button>
+      </div>
+    </div>
+
+    <div class="cards" id="cards" role="radiogroup" aria-label="Choose a package">
+      <label class="card rv" data-id="standard">
+        <input type="radio" name="pkg" value="standard">
+        <div class="top">Standard Explorer</div>
+        <div class="ph"><img src="img/suitcase.webp" alt="Traveler wheeling a suitcase" loading="lazy"></div>
+        <div class="body">
+          <p>Perfect for travelers seeking a comfortable and affordable vacation experience.</p>
+          <h4>What's Included</h4>
+          <ul class="inc">
+            <li><svg><use href="#ck"/></svg><span>Round-trip flights</span></li>
+            <li><svg><use href="#ck"/></svg><span>3-night hotel stay</span></li>
+            <li><svg><use href="#ck"/></svg><span>Daily breakfast</span></li>
+            <li><svg><use href="#ck"/></svg><span>Airport transfers</span></li>
+            <li><svg><use href="#ck"/></svg><span>Guided city tour</span></li>
+          </ul>
+        </div>
+        <div class="price"><strong>₱7,999</strong><span>/ person</span></div>
+        <div class="pick">Choose Standard</div>
+      </label>
+
+      <label class="card rv" data-id="premium">
+        <input type="radio" name="pkg" value="premium">
+        <div class="stamp">Best<br>Value</div>
+        <div class="top">Premium Escape</div>
+        <div class="ph"><img src="img/women.webp" alt="Two travelers at the airport" loading="lazy"></div>
+        <div class="body">
+          <p>Enjoy a premium travel experience with exclusive services and luxury accommodations.</p>
+          <h4>What's Included</h4>
+          <ul class="inc">
+            <li><svg><use href="#ck"/></svg><span>Round-trip flights</span></li>
+            <li class="up"><svg><use href="#ck"/></svg><span>3-night premium hotel accommodation</span></li>
+            <li class="up"><svg><use href="#ck"/></svg><span>Breakfast &amp; dinner included</span></li>
+            <li class="up"><svg><use href="#ck"/></svg><span>Private airport transfers</span></li>
+            <li class="up"><svg><use href="#ck"/></svg><span>VIP attraction access</span></li>
+            <li class="up"><svg><use href="#ck"/></svg><span>Personal tour guide</span></li>
+          </ul>
+        </div>
+        <div class="price"><strong>₱14,999</strong><span>/ person</span></div>
+        <div class="pick">Choose Premium</div>
+      </label>
+    </div>
+
+    <div class="estimate rv" id="est">
+      <div class="l">
+        <small id="eLabel">Your estimate</small>
+        <b id="eTotal">₱15,998</b><br>
+        <span id="eNote">Standard Explorer × 2 travelers</span>
+      </div>
+      <div class="btns">
+        <button class="btn ghost" id="cmpBtn" type="button" aria-expanded="false" aria-controls="cmp">Compare side by side</button>
+        <a class="btn" href="#contact" id="goPlan">Book this package</a>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" id="cmp">
+      <div>
+        <table>
+          <thead><tr><th></th><th>Standard Explorer</th><th>Premium Escape</th></tr></thead>
+          <tbody>
+            <tr><td>Flights</td><td>Round-trip flights</td><td>Round-trip flights</td></tr>
+            <tr><td>Hotel</td><td>3-night hotel stay</td><td class="d">3-night premium hotel</td></tr>
+            <tr><td>Meals</td><td>Daily breakfast</td><td class="d">Breakfast &amp; dinner</td></tr>
+            <tr><td>Transfers</td><td>Airport transfers</td><td class="d">Private airport transfers</td></tr>
+            <tr><td>On the ground</td><td>Guided city tour</td><td class="d">VIP attraction access + personal tour guide</td></tr>
+            <tr><td>Per person</td><td><b>₱7,999</b></td><td class="d"><b>₱14,999</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec proc" id="process">
+  <div class="cloud pc1"></div>
+  <div class="wrap">
+    <div class="eyebrow" style="color:#fff;opacity:.85">Four steps, then wheels up</div>
+    <h2 class="h2">Booking<br><span class="alt">Process</span></h2>
+    <div class="proc-grid">
+      <ol class="steps" id="steps" role="tablist" aria-label="Booking steps">
+        <li><button role="tab" aria-selected="true" data-i="0"><span class="n">1</span><span><strong>Choose a Package</strong><span>Select the destination and travel package that best fits your needs.</span></span></button></li>
+        <li><button role="tab" aria-selected="false" data-i="1"><span class="n">2</span><span><strong>Confirm Your Booking</strong><span>Complete your reservation with quick and secure booking details.</span></span></button></li>
+        <li><button role="tab" aria-selected="false" data-i="2"><span class="n">3</span><span><strong>Prepare for Departure</strong><span>Receive your itinerary, travel documents, and trip information.</span></span></button></li>
+        <li><button role="tab" aria-selected="false" data-i="3"><span class="n">4</span><span><strong>Enjoy Your Journey</strong><span>Travel with confidence while we take care of every detail.</span></span></button></li>
+      </ol>
+      <div class="flight" aria-live="polite">
+        <div class="eyebrow" style="color:#fff;opacity:.8" id="fEy">Step 1 of 4</div>
+        <div class="big" id="fBig">Choose a Package</div>
+        <p id="fTxt">Select the destination and travel package that best fits your needs.</p>
+        <div class="route" aria-hidden="true">
+          <div class="line"></div><div class="line fill" id="fill"></div>
+          <span class="stop" style="left:0"></span><span class="stop" style="left:33.333%"></span><span class="stop" style="left:66.666%"></span><span class="stop" style="left:100%"></span>
+          <svg class="jetmini" id="jm" viewBox="0 0 24 24" width="46" height="46" style="left:0"><use href="#plane"/></svg>
+        </div>
+        <div class="nxt">
+          <button class="btn ghost" id="prev" type="button">Back</button>
+          <button class="btn" id="next" type="button">Next step</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec plan" id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#fff;opacity:.85">Plan Custom Trip</div>
+    <h2 class="h2">Get in<br>Touch with <span class="alt">Dayo</span></h2>
+    <div class="plan-grid">
+      <form id="trip" novalidate>
+        <h3>Tell us about your trip</h3>
+        <div class="f"><label for="fn">Your name</label><input id="fn" autocomplete="name" placeholder="Juan dela Cruz"></div>
+        <div class="f"><label for="fd">Where to?</label><input id="fd" placeholder="City or country"></div>
+        <div class="f"><label for="fs">Leaving</label><input id="fs" type="date"></div>
+        <div class="f"><label for="fe">Back</label><input id="fe" type="date"></div>
+        <div class="f"><label for="ft">Travelers</label><input id="ft" type="number" min="1" max="99" value="2"></div>
+        <div class="f"><label for="fp">Package</label>
+          <select id="fp"><option value="standard">Standard · ₱7,999</option><option value="premium">Premium · ₱14,999</option><option value="custom">Fully custom</option></select></div>
+        <div class="f w"><label for="fb">Budget, preferences, must-sees</label><textarea id="fb" placeholder="Anything that helps us shape the itinerary…"></textarea></div>
+        <div class="f w"><button class="btn" style="background:var(--red);width:100%;font-size:17px" type="submit">Build my trip request</button></div>
+        <div class="out" id="out" role="status">
+          <pre id="msg"></pre>
+          <div class="row">
+            <a class="btn" id="mailBtn" href="#">Send by email</a>
+            <a class="btn" id="smsBtn" href="#">Send by text</a>
+            <button class="btn alt" type="button" id="copy">Copy message</button>
+            <small>Or paste it into a message on Instagram or Facebook.</small>
+          </div>
+        </div>
+      </form>
+
+      <div class="reach">
+        <a class="ch" href="tel:09612105156"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span><small>Phone Number</small><b>09612105156</b></span></a>
+        <a class="ch" href="mailto:dayotravelandtours@gmail.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.500 7 8.500 6 8.500-6"/></svg><span><small>Email Address</small><b>dayotravelandtours@gmail.com</b></span></a>
+        <a class="ch" href="https://www.instagram.com/dayotraveltours" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3.500" y="3.500" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.200" cy="6.800" r=".6" fill="#ee1c1c"/></svg><span><small>Instagram</small><b>@dayotraveltours</b></span></a>
+        <a class="ch" id="fbLink" href="https://www.facebook.com/search/pages?q=Dayo%20Travel%20and%20Tours" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 8h2.500V4.500H14a4 4 0 0 0-4 4V11H7.500v3.500H10V21h3.500v-6.500H16l.5-3.500h-3V9a1 1 0 0 1 1-1z"/></svg><span><small>Facebook</small><b>Dayo Travel and Tours</b></span></a>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="wrap"><img src="img/logo.webp" alt="Dayo"><span>© Dayo Travel and Tours · Mapping Your Journey, Discovering Your World</span></div>
+  </footer>
+</section>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  /* ---- edit these in one place ---- */
+  const CONFIG={
+    phone:'09612105156',
+    email:'dayotravelandtours@gmail.com',
+    instagram:'https://www.instagram.com/dayotraveltours',
+    facebook:'https://www.facebook.com/search/pages?q=Dayo%20Travel%20and%20Tours' // <- replace with your Page URL, e.g. https://www.facebook.com/yourpage
+  };
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const peso=n=>'₱'+n.toLocaleString('en-PH');
+
+  $('#fbLink').href=CONFIG.facebook;
+
+  /* reveal */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  $$('.rv').forEach(el=>io.observe(el));
+
+  /* nav: scrollspy + plane riding the progress bar */
+  const secs=['home','packages','process','contact'].map(id=>document.getElementById(id));
+  const links=$$('#links a'), bar=$('#bar'), tp=$('#trailPlane');
+  function onScroll(){
+    const y=scrollY, h=document.documentElement.scrollHeight-innerHeight;
+    const p=h>0?y/h:0, w=document.documentElement.clientWidth;
+    bar.style.width=(p*100)+'%'; tp.style.left=(p*w)+'px';
+    let cur='home'; secs.forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=s.id});
+    links.forEach(a=>a.classList.toggle('on',a.dataset.s===cur));
+    $$('.cloud[data-p]').forEach(c=>c.style.transform=`translateY(${y*c.dataset.p*-.25}px)`);
+  }
+  addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll); onScroll();
+
+  /* hero plane follows the cursor a little */
+  const jet=$('#jet');
+  if(matchMedia('(hover:hover)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+    setTimeout(()=>{jet.style.animation='none';},1700);
+    addEventListener('mousemove',e=>{
+      const x=(e.clientX/innerWidth-.5), y=(e.clientY/innerHeight-.5);
+      jet.style.translate=`${x*-26}px ${y*-18}px`; jet.style.rotate=`${x*2}deg`;
+    });
+  }
+
+  /* why accordion */
+  $$('[data-pc]').forEach(b=>b.addEventListener('click',()=>{
+    const o=b.getAttribute('aria-expanded')==='true';
+    b.setAttribute('aria-expanded',String(!o));
+  }));
+
+  /* packages */
+  const P={standard:{name:'Standard Explorer',price:7999},premium:{name:'Premium Escape',price:14999}};
+  let n=2, pkg='standard';
+  function paint(){
+    $('#nOut').textContent=n;
+    $$('.card').forEach(c=>{const on=c.dataset.id===pkg;c.classList.toggle('sel',on);c.querySelector('input').checked=on});
+    const p=P[pkg];
+    const total=$('#eTotal'); total.textContent=peso(p.price*n);
+    $('#eNote').textContent=`${p.name} × ${n} traveler${n>1?'s':''} · ${peso(p.price)} each`;
+    $('#minus').disabled=n<=1; $('#plus').disabled=n>=20;
+    $('#fp').value=pkg; $('#ft').value=n;
+    total.animate([{transform:'scale(1.06)'},{transform:'none'}],{duration:220,easing:'ease-out'});
+  }
+  $('#minus').onclick=()=>{n=Math.max(1,n-1);paint()};
+  $('#plus').onclick=()=>{n=Math.min(20,n+1);paint()};
+  $$('.card input').forEach(i=>i.addEventListener('change',()=>{pkg=i.value;paint()}));
+  $('#cmpBtn').onclick=e=>{
+    const w=$('#cmp'), o=w.classList.toggle('open');
+    $('#cards').classList.toggle('compare-on',o);
+    e.target.setAttribute('aria-expanded',String(o));
+    e.target.textContent=o?'Hide comparison':'Compare side by side';
+    if(o) setTimeout(()=>w.scrollIntoView({behavior:'smooth',block:'center'}),150);
+  };
+  paint();
+
+  /* booking steps */
+  const S=[
+    ['Choose a Package','Select the destination and travel package that best fits your needs.'],
+    ['Confirm Your Booking','Complete your reservation with quick and secure booking details.'],
+    ['Prepare for Departure','Receive your itinerary, travel documents, and trip information.'],
+    ['Enjoy Your Journey','Travel with confidence while we take care of every detail.']
+  ];
+  let si=0; const sb=$$('#steps button');
+  function step(i){
+    si=i;
+    sb.forEach((b,k)=>{b.setAttribute('aria-selected',String(k===i));b.parentElement.classList.toggle('done',k<i)});
+    $('#fEy').textContent=`Step ${i+1} of 4`; $('#fBig').textContent=S[i][0]; $('#fTxt').textContent=S[i][1];
+    const pct=i/3*100; $('#jm').style.left=pct+'%'; $('#fill').style.width=pct+'%';
+    $$('.route .stop').forEach((s,k)=>s.classList.toggle('on',k<=i));
+    $('#prev').disabled=i===0;
+    const nx=$('#next'); nx.textContent=i===3?'Plan my trip':'Next step';
+  }
+  sb.forEach(b=>b.addEventListener('click',()=>step(+b.dataset.i)));
+  $('#prev').onclick=()=>step(Math.max(0,si-1));
+  $('#next').onclick=()=>{ if(si<3) step(si+1); else location.hash='contact'; };
+  step(0);
+
+  /* trip form -> shareable message */
+  const fmt=v=>v?new Date(v+'T00:00').toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'}):'';
+  $('#trip').addEventListener('submit',e=>{
+    e.preventDefault();
+    const g=id=>$('#'+id).value.trim(), pv=$('#fp').value;
+    const plan=pv==='custom'?'Fully custom trip':`${P[pv].name} (${peso(P[pv].price)} / person)`;
+    const t=+g('ft')||1;
+    const dates=g('fs')||g('fe')?`${fmt(g('fs'))||'—'} to ${fmt(g('fe'))||'—'}`:'Flexible';
+    let m=`Hi Dayo Travel and Tours! I'd like to plan a trip.\n\n`+
+      `Name: ${g('fn')||'—'}\nDestination: ${g('fd')||'Open to suggestions'}\nDates: ${dates}\nTravelers: ${t}\nPackage: ${plan}`;
+    if(pv!=='custom') m+=`\nEstimate: ${peso(P[pv].price*t)} total`;
+    if(g('fb')) m+=`\n\nNotes: ${g('fb')}`;
+    $('#msg').textContent=m; $('#out').classList.add('show');
+    $('#mailBtn').href='mailto:'+CONFIG.email+'?subject='+encodeURIComponent('Trip request — Dayo Travel and Tours')+'&body='+encodeURIComponent(m);
+    $('#smsBtn').href='sms:'+CONFIG.phone+'?&body='+encodeURIComponent(m);
+    $('#out').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+  $('#fp').addEventListener('change',e=>{if(P[e.target.value]){pkg=e.target.value;paint()}});
+  $('#ft').addEventListener('input',e=>{const v=Math.max(1,Math.min(20,+e.target.value||1));n=v;
+    $('#nOut').textContent=n; paintQuiet()});
+  function paintQuiet(){const p=P[pkg];$('#eTotal').textContent=peso(p.price*n);$('#eNote').textContent=`${p.name} × ${n} traveler${n>1?'s':''} · ${peso(p.price)} each`;$('#minus').disabled=n<=1;$('#plus').disabled=n>=20}
+  function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2200)}
+  $('#copy').onclick=async()=>{
+    const txt=$('#msg').textContent;
+    try{await navigator.clipboard.writeText(txt);toast('Copied — paste it to Dayo')}
+    catch(_){const r=document.createRange();r.selectNodeContents($('#msg'));const s=getSelection();s.removeAllRanges();s.addRange(r);toast('Select & copy the text above')}
+  };
+  $('#goPlan').addEventListener('click',()=>{ $('#fp').value=pkg; $('#ft').value=n; });
+})();
+</script>
+</body>
+</html>
