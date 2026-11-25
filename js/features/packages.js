@@ -14,6 +14,11 @@ export function initPackages(store, catalog) {
     input.addEventListener('change', () => input.checked && store.set({ package: input.value })),
   );
 
+  // iOS Safari: also select on tap of the card itself, in case the label→radio forwarding is skipped.
+  qsa('[data-package]').forEach((card) =>
+    card.addEventListener('click', () => store.set({ package: card.dataset.package })),
+  );
+
   [minus, plus].forEach((btn) =>
     btn.addEventListener('click', () => {
       const next = store.get().travelers + Number(btn.dataset.travelers);
