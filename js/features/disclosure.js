@@ -13,6 +13,7 @@ export function initDisclosures() {
     const set = (open) => {
       button.setAttribute('aria-expanded', String(open));
       panel.classList.toggle('is-open', open);
+      button.closest('.feature')?.classList.toggle('is-open', open); // :has() fallback for older iOS
       panel.inert = !open;
       const label = open ? button.dataset.labelOpen : button.dataset.labelClosed;
       if (label) button.textContent = label;

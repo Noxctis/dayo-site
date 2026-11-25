@@ -19,7 +19,7 @@ export function initHeader() {
   const visible = new Set();
   const setCurrent = () => {
     // Prefer the lowest visible section in document order that crosses the viewport's focus band.
-    const current = sections.filter((s) => visible.has(s.id)).at(-1)?.id ?? 'home';
+    const current = sections.filter((s) => visible.has(s.id)).pop()?.id ?? 'home';
     links.forEach((link, id) => {
       if (id === current) link.setAttribute('aria-current', 'true');
       else link.removeAttribute('aria-current');

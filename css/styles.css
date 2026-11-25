@@ -4,7 +4,6 @@
    layout < components < utilities.
    ========================================================= */
 
-@layer reset, tokens, base, layout, components, utilities;
 
 /* ---------- fonts (self-hosted, variable, subset) ---------- */
 @font-face {
@@ -37,7 +36,7 @@
 }
 
 /* ---------- reset ---------- */
-@layer reset {
+/* ── reset ── */
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -49,10 +48,10 @@
   a { color: inherit; }
   table { border-collapse: collapse; }
   [hidden] { display: none !important; }
-}
+
 
 /* ---------- design tokens ---------- */
-@layer tokens {
+/* ── tokens ── */
   :root {
     --red: #ee1c1c;
     --red-deep: #c40f12;
@@ -84,10 +83,10 @@
   @media (min-width: 56em) {
     :root { --header-h: 3.75rem; --gutter: 2rem; }
   }
-}
+
 
 /* ---------- base ---------- */
-@layer base {
+/* ── base ── */
   html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 0.5rem); }
   body {
     font-family: var(--font-body);
@@ -99,16 +98,16 @@
   }
   :focus-visible { outline: var(--focus-ring); outline-offset: 3px; border-radius: 0.4rem; }
   ::selection { background: var(--red); color: var(--white); }
-}
+
 
 /* ---------- layout ---------- */
-@layer layout {
+/* ── layout ── */
   .container { width: min(var(--container), 100% - var(--gutter) * 2); margin-inline: auto; }
   .section { position: relative; padding-block: clamp(4rem, 9vw, 7rem); }
-}
+
 
 /* ---------- components ---------- */
-@layer components {
+/* ── components ── */
 
   /* skip link */
   .skip-link {
@@ -210,7 +209,7 @@
 
   /* ----- hero ----- */
   .hero {
-    position: relative; isolation: isolate; overflow: clip;
+    position: relative; isolation: isolate; overflow: hidden; overflow: clip;
     padding: calc(var(--header-h) + 1.5rem) 0 4rem;
     background: linear-gradient(180deg, #1b5fcb 0%, #4b92e3 38%, var(--sky-soft) 72%, var(--paper) 100%);
   }
@@ -245,8 +244,8 @@
   @keyframes jet-in { from { opacity: 0; transform: translate(-120px, 40px) rotate(-4deg); } }
 
   @media (min-width: 56em) {
-    .hero { min-height: 100svh; padding-bottom: 5rem; }
-    .hero__grid { grid-template-columns: 1.05fr 1fr; gap: 1.25rem; min-height: calc(100svh - var(--header-h) - 6.5rem); }
+    .hero { min-height: 100vh; min-height: 100svh; padding-bottom: 5rem; }
+    .hero__grid { grid-template-columns: 1.05fr 1fr; gap: 1.25rem; min-height: calc(100vh - var(--header-h) - 6.5rem); min-height: calc(100svh - var(--header-h) - 6.5rem); }
     .hero__logo { width: min(27.5rem, 78%); }
     .hero__visual { min-height: 26rem; }
     .hero__jet { right: -5.5rem; width: min(54rem, 118%); }
@@ -269,6 +268,7 @@
   }
   .feature:hover { transform: translateY(-4px); }
   .feature:has([aria-expanded="true"]) { border-color: var(--red); box-shadow: 8px 8px 0 var(--red); }
+  .feature.is-open { border-color: var(--red); box-shadow: 8px 8px 0 var(--red); }
   .feature__heading { font: inherit; }
   .feature__toggle {
     display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 0.6rem;
@@ -316,7 +316,7 @@
 
   /* ----- packages ----- */
   .packages {
-    overflow: clip;
+    overflow: hidden; overflow: clip;
     background: linear-gradient(180deg, var(--paper), #fff 30%, #f1f7fe 75%, var(--sky-soft));
   }
   .packages::before {
@@ -352,6 +352,7 @@
   }
   .card:hover { transform: translateY(-4px); }
   .card:has(.card__input:checked) { border-color: var(--red); box-shadow: 10px 10px 0 var(--red); }
+  .card.is-checked { border-color: var(--red); box-shadow: 10px 10px 0 var(--red); }
   .card:has(.card__input:focus-visible) { outline: var(--focus-ring); outline-offset: 4px; }
   .card__input { position: absolute; opacity: 0; pointer-events: none; }
   .card > *, .card__body > * { display: block; }
@@ -376,8 +377,10 @@
     text-align: center; font-weight: 700; color: var(--red); transition: background-color 0.2s, color 0.2s;
   }
   .card:has(.card__input:checked) .card__pick { background: var(--red); color: var(--white); }
+  .card.is-checked .card__pick { background: var(--red); color: var(--white); }
   .card:has(.card__input:checked) .card__pick::before { content: "✓ "; }
 
+  .card.is-checked .card__pick::before { content: "✓ "; }
   .stamp {
     position: absolute; z-index: 3; right: 0.4rem; top: 4.6rem; width: 5.25rem; height: 5.25rem;
     display: grid; place-items: center; background: var(--red); color: var(--white); rotate: -14deg;
@@ -413,7 +416,7 @@
 
   /* ----- booking process ----- */
   .process {
-    overflow: clip; color: var(--white);
+    overflow: hidden; overflow: clip; color: var(--white);
     background: linear-gradient(180deg, var(--sky-soft) 0, #4c93e4 14%, var(--sky) 60%, var(--sky-deep) 100%);
   }
   .cloud--process { --speed: 0; width: 35rem; right: -5rem; top: 4rem; opacity: 0.7; }
@@ -437,7 +440,7 @@
 
   .stage {
     --step: 0; padding: 1.9rem; border: 2px solid rgb(255 255 255 / 0.4); border-radius: var(--radius-lg);
-    background: rgb(255 255 255 / 0.12); backdrop-filter: blur(6px);
+    background: rgb(255 255 255 / 0.12); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   }
   .stage__title { min-height: 2em; margin-top: 0.4rem; font-family: var(--font-display); font-weight: 800; font-size: clamp(2.125rem, 1.4rem + 2.4vw, 3.125rem); line-height: 1; letter-spacing: -0.03em; }
   .stage__text { min-height: 3.2em; margin-top: 0.6rem; font-size: 1.0625rem; }
@@ -516,10 +519,10 @@
     opacity: 0; pointer-events: none; transition: opacity 0.3s, translate 0.3s;
   }
   .toast.is-visible { opacity: 1; translate: -50% 0; }
-}
+
 
 /* ---------- utilities ---------- */
-@layer utilities {
+/* ── utilities ── */
   .visually-hidden {
     position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
     overflow: hidden; clip-path: inset(50%); white-space: nowrap;
@@ -527,7 +530,7 @@
   /* Scroll-reveal only when JS is available (see js/boot.js) */
   .js .reveal { opacity: 0; transform: translateY(1.6rem); transition: opacity 0.7s, transform 0.7s; }
   .js .reveal.is-visible { opacity: 1; transform: none; }
-}
+
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

@@ -25,7 +25,10 @@ export function initPackages(store, catalog) {
     const pkg = catalog[id]; // undefined for "Fully custom"
     const plural = `${travelers} traveler${travelers === 1 ? '' : 's'}`;
 
-    qsa('input[name="package"]').forEach((input) => (input.checked = input.value === id));
+    qsa('input[name="package"]').forEach((input) => {
+      input.checked = input.value === id;
+      input.closest('.card')?.classList.toggle('is-checked', input.checked); // :has() fallback for older iOS
+    });
     output.textContent = travelers;
     minus.disabled = travelers <= MIN_TRAVELERS;
     plus.disabled = travelers >= MAX_TRAVELERS;
