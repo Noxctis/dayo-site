@@ -262,9 +262,9 @@
   .band__title { position: absolute; inset: auto auto 3rem max(0.5rem, calc(50% - 35.5rem)); width: min(50rem, 94vw); }
   .band__title img { width: 100%; }
 
-  .features { position: relative; z-index: 1; display: grid; gap: 1.25rem; align-items: start; margin-top: 0.5rem; }
+  .features { position: relative; z-index: 1; display: grid; grid-auto-rows: 1fr; gap: 1.25rem; align-items: stretch; margin-top: 0.5rem; }
   .feature {
-    position: relative; padding: 1.5rem; border: 2px solid var(--line); border-radius: var(--radius);
+    position: relative; display: flex; flex-direction: column; padding: 1.5rem; border: 2px solid var(--line); border-radius: var(--radius);
     background: var(--white); transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
   }
   .feature:hover { transform: translateY(-4px); }
@@ -273,8 +273,8 @@
   .feature__toggle {
     display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 0.6rem;
     padding: 0; border: 0; background: none; text-align: left; color: var(--red);
-    font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; line-height: 1;
-    letter-spacing: -0.02em; text-transform: uppercase;
+    font-family: var(--font-display); font-size: clamp(1.25rem, 0.7rem + 1vw, 1.5rem); font-weight: 800; line-height: 1;
+    letter-spacing: -0.02em; text-transform: uppercase; overflow-wrap: anywhere;
   }
   .feature__toggle::after { content: ""; position: absolute; inset: 0; border-radius: inherit; } /* whole card is the hit area */
   .feature__icon {
@@ -300,8 +300,13 @@
   .story__text { margin-top: 0.9rem; color: var(--ink-soft); }
 
   @media (min-width: 48em) {
-    .features { grid-template-columns: repeat(3, 1fr); }
     .story { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 55.99em) {
+    .feature__toggle { min-height: 3.25rem; } /* closed boxes match even when one title wraps */
+  }
+  @media (min-width: 56em) {
+    .features { grid-template-columns: repeat(3, minmax(0, 1fr)); } /* minmax(0, …) keeps columns exactly equal */
   }
 
   /* ----- disclosure (animated, no-JS safe) ----- */
